@@ -11,13 +11,31 @@ class MyApp extends StatelessWidget {
   // we are  overriding the statelesswidget build method
   @override
   Widget build(BuildContext context) {
+    var questions = [
+      'What\'s your favorite color?',
+      'What\'s your favorite animal?',
+    ];
     return MaterialApp(
       // home is named argument, text is a positional argument
       home: Scaffold(
         appBar: AppBar(
           title: Text('Quiz App'),
         ),
-        body: Text('This is my default text'),
+        body: Column(children: [
+          Text('The Questions!'),
+          ElevatedButton(
+            child: Text('Answer 1'),
+            onPressed: null,
+          ),
+          ElevatedButton(
+            child: Text('Answer 2'),
+            onPressed: null,
+          ),
+          ElevatedButton(
+            child: Text('Answer 3'),
+            onPressed: null,
+          ),
+        ]),
       ),
     );
   }
