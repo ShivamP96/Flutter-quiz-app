@@ -13,7 +13,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       // home is named argument, text is a positional argument
-      home: Text('Hello!'),
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Quiz App'),
+        ),
+        body: Text('This is my default text'),
+      ),
     );
   }
 }
