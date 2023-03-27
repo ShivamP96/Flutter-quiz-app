@@ -1,4 +1,7 @@
+// imports for packages first then my own files
 import 'package:flutter/material.dart';
+
+import './question.dart';
 
 // void main() {
 //   runApp(MyApp());
@@ -14,7 +17,7 @@ class MyApp extends StatefulWidget {
   // StatefulWidget.
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return MyAppState();
+    return _MyAppState();
   }
 }
 
@@ -22,17 +25,19 @@ class MyApp extends StatefulWidget {
 // State is provided by materialDart
 // MyAppState is an object of type State which is connected to <MyApp> which
 // is a stateful widget
-class MyAppState extends State<MyApp> {
+// the _ makes it private class so only from this file it can be used
+class _MyAppState extends State<MyApp> {
   // store class wide variables (properties) here, not in build method
   // otherwise they will be reset everytime build happens
-  var questionIndex = 0;
+  var _questionIndex = 0;
 
-  void answerQuestion() {
+// this function in a class is called a method
+  void _answerQuestion() {
     setState(() {
-      questionIndex = questionIndex + 1;
+      _questionIndex = _questionIndex + 1;
     });
 
-    print(questionIndex);
+    print(_questionIndex);
   }
 
   // we are  overriding the statelesswidget build method
@@ -49,13 +54,13 @@ class MyAppState extends State<MyApp> {
           title: Text('Quiz App'),
         ),
         body: Column(children: [
-          Text(
-            questions[questionIndex],
+          Question(
+            questions[_questionIndex],
           ),
           ElevatedButton(
             child: Text('Answer 1'),
             // passing the name of the function not the result
-            onPressed: answerQuestion,
+            onPressed: _answerQuestion,
           ),
           ElevatedButton(
             child: Text('Answer 2'),
