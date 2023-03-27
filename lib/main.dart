@@ -8,6 +8,10 @@ import 'package:flutter/material.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+  void answerQuestion() {
+    print("Answer Chosen!");
+  }
+
   // we are  overriding the statelesswidget build method
   @override
   Widget build(BuildContext context) {
@@ -25,15 +29,19 @@ class MyApp extends StatelessWidget {
           Text('The Questions!'),
           ElevatedButton(
             child: Text('Answer 1'),
-            onPressed: null,
+            // passing the name of the function not the result
+            onPressed: answerQuestion,
           ),
           ElevatedButton(
             child: Text('Answer 2'),
-            onPressed: null,
+            // anonmous Function
+            onPressed: () => print('Answer 2 Chosen'),
           ),
           ElevatedButton(
             child: Text('Answer 3'),
-            onPressed: null,
+            onPressed: () {
+              print('Answer 3 Chosen!');
+            },
           ),
         ]),
       ),
