@@ -7,9 +7,32 @@ import 'package:flutter/material.dart';
 // use this syntax for anything that is one line
 void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  // createState is a method that takes no arguments
+  // but has to return a state object which is connected to a
+  // StatefulWidget.
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return MyAppState();
+  }
+}
+
+// <MyApp> pointer to MyApp
+// State is provided by materialDart
+// MyAppState is an object of type State which is connected to <MyApp> which
+// is a stateful widget
+class MyAppState extends State<MyApp> {
+  // store class wide variables (properties) here, not in build method
+  // otherwise they will be reset everytime build happens
+  var questionIndex = 0;
+
   void answerQuestion() {
-    print("Answer Chosen!");
+    setState(() {
+      questionIndex = questionIndex + 1;
+    });
+
+    print(questionIndex);
   }
 
   // we are  overriding the statelesswidget build method
@@ -26,7 +49,9 @@ class MyApp extends StatelessWidget {
           title: Text('Quiz App'),
         ),
         body: Column(children: [
-          Text('The Questions!'),
+          Text(
+            questions[questionIndex],
+          ),
           ElevatedButton(
             child: Text('Answer 1'),
             // passing the name of the function not the result
