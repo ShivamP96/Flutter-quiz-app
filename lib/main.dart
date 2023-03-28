@@ -1,8 +1,10 @@
 // imports for packages first then my own files
 import 'package:flutter/material.dart';
+import 'package:quiz_app/result.dart';
 
-import './question.dart';
+import './quiz.dart';
 import './answer.dart';
+import './result.dart';
 
 // void main() {
 //   runApp(MyApp());
@@ -28,31 +30,47 @@ class MyApp extends StatefulWidget {
 // is a stateful widget
 // the _ makes it private class so only from this file it can be used
 class _MyAppState extends State<MyApp> {
-  final questions = const [
+  final _questions = const [
     {
       'questionText': 'What\'s your favorite color?',
-      'answers': ['Black', 'Green', 'Red', 'White'],
+      'answers': [
+        {'text': 'Black', 'score': 10},
+        {'text': 'Green', 'score': 5},
+        {'text': 'Red', 'score': 3},
+        {'text': 'White', 'score': 1}
+      ],
     },
     {
       'questionText': 'What\'s your favorite animal?',
-      'answers': ['Rabbit', 'Snake', 'Elephant', 'Lion'],
+      'answers': [
+        {'text': 'Rabbit', 'score': 20},
+        {'text': 'Snake', 'score': 1},
+        {'text': 'Elephant', 'score': 30},
+        {'text': 'Lion', 'score': 40}
+      ],
     },
     {
       'questionText': 'What\'s your favorite food?',
-      'answers': ['Pizza', 'Tacos', 'Donuts', 'Carrots'],
+      'answers': [
+        {'text': 'Pizza', 'score': 5},
+        {'text': 'Pani Puri', 'score': 20},
+        {'text': 'Donuts', 'score': 10},
+        {'text': 'Carrots', 'score': 2}
+      ],
     },
   ];
   // store class wide variables (properties) here, not in build method
   // otherwise they will be reset everytime build happens
   var _questionIndex = 0;
-
+  var _totalScore = 0;
 // this function in a class is called a method
-  void _answerQuestion() {
+  void _answerQuestion(int score) {
+    _totalScore = _totalScore + score;
     setState(() {
       _questionIndex = _questionIndex + 1;
     });
     print(_questionIndex);
-    if (_questionIndex < questions.length) {
+    if (_questionIndex < _questions.length) {
       print("we have more questions!");
     }
   }
@@ -66,17 +84,13 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: Text('Quiz App'),
         ),
-        body: _questionIndex < questions.length
-            ? Column(children: [
-                Question(
-                  questions[_questionIndex]['questionText'],
-                ),
-                ...(questions[_questionIndex]['answers'] as List<String>)
-                    .map((answer) {
-                  return Answer(_answerQuestion, answer);
-                }).toList()
-              ])
-            : Center(child: Text('You Did It!')),
+        body: _questionIndex < _questions.length
+            ? Quiz(
+                answerQuestion: _answerQuestion,
+                questions: _questions,
+                questionIndex: _questionIndex,
+              )
+            : Result(),
       ),
     );
   }
